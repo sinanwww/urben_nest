@@ -1,7 +1,12 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:urben_nest/utls/app_theme.dart';
+import 'package:urben_nest/utls/widgets/alert_box.dart';
 import 'package:urben_nest/utls/widgets/float_button.dart';
+import 'package:urben_nest/view/auth/login_page.dart';
 import 'package:urben_nest/view/dashboard/create_cmty_page.dart';
+import 'package:urben_nest/view_model/auth_view_model.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -42,28 +47,64 @@ class DashboardPage extends StatelessWidget {
 
                   const SizedBox(width: 16),
 
-                  const Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Welcome, User",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "474411255874",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                  StreamBuilder<DatabaseEvent>(
+                    stream: context.read<AuthViewModel>().userStream,
+                    builder: (context, snapshot) {
+                      dynamic data;
+                      if (snapshot.hasData &&
+                          snapshot.data!.snapshot.value != null) {
+                        data = snapshot.data!.snapshot.value;
+                      }
+
+                      final name =
+                          (data is Map ? data['name'] : null) ?? 'User';
+                      final phone =
+                          (data is Map ? data['phone'] : null) ?? 'No Phone';
+
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Welcome, $name",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            phone,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   Spacer(),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertBox(
+                            title: "Logout",
+                            message: "Are you sure you want to logout?",
+                            onConfirm: () {
+                              context.read<AuthViewModel>().signOut();
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                                (route) => false,
+                              );
+                            },
+                            icon: Icons.logout,
+                          );
+                        },
+                      );
+                    },
                     icon: Icon(Icons.logout, size: 30, color: Colors.white),
                   ),
                 ],

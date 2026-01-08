@@ -37,6 +37,7 @@ class AttachButton extends StatelessWidget {
                 imagePath,
                 height: 50,
                 width: 50,
+                // ignore: deprecated_member_use
                 color: Theme.of(context).colorScheme.primary,
               ),
               SizedBox(height: 10),
