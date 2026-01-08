@@ -11,6 +11,7 @@ class AppTheme {
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       primary: Colors.black,
+      secondary: Colors.white,
       seedColor: primary,
       brightness: Brightness.light,
       error: errorRed,
@@ -35,6 +36,10 @@ class AppTheme {
     textTheme: TextTheme(
       // bodyMedium: const TextStyle(fontFamily: 'poppins', color: Colors.black87),
       headlineLarge: Fontstyle.light(fontWeight: FontWeight.w500, fontSize: 28),
+      headlineMedium: Fontstyle.light(
+        fontWeight: FontWeight.w600,
+        fontSize: 18,
+      ),
       bodySmall: Fontstyle.light(fontWeight: FontWeight.w400, fontSize: 12),
       labelMedium: Fontstyle.light(fontWeight: FontWeight.w400, fontSize: 16),
     ),
@@ -46,6 +51,7 @@ class AppTheme {
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       primary: Colors.white,
+      secondary: Colors.black,
       seedColor: primary,
       brightness: Brightness.dark,
       error: errorRed,
@@ -66,7 +72,7 @@ class AppTheme {
     ),
     textTheme: TextTheme(
       headlineLarge: Fontstyle.dark(fontWeight: FontWeight.w500, fontSize: 28),
-      headlineMedium: Fontstyle.dark(fontWeight: FontWeight.w500, fontSize: 24),
+      headlineMedium: Fontstyle.dark(fontWeight: FontWeight.w600, fontSize: 18),
       labelMedium: Fontstyle.dark(fontWeight: FontWeight.w400, fontSize: 16),
 
       // bodyMedium: TextStyle(fontFamily: 'poppins', color: Colors.white70),
