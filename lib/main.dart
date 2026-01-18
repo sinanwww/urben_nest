@@ -8,13 +8,27 @@ import 'package:urben_nest/view/dashboard/dashboard_page.dart';
 
 import 'package:provider/provider.dart';
 import 'package:urben_nest/view_model/auth_view_model.dart';
+import 'package:urben_nest/view_model/community_view_model.dart';
+import 'package:urben_nest/view_model/event_view_model.dart';
+import 'package:urben_nest/view_model/member_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    // Ignore duplicate app initialization error
+  }
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthViewModel())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => CommunityViewModel()),
+        ChangeNotifierProvider(create: (_) => EventViewModel()),
+        ChangeNotifierProvider(create: (_) => MemberViewModel()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -27,10 +41,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Urben Nest',
       themeMode: ThemeMode.dark,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
+
+      debugShowCheckedModeBanner: false,
 
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),

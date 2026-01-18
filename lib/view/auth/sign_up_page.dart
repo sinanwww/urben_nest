@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:urben_nest/utls/app_theme.dart';
+import 'package:urben_nest/utls/validators.dart';
 import 'package:urben_nest/utls/widgets/auth_frame.dart';
 import 'package:urben_nest/utls/widgets/input_field.dart';
 import 'package:urben_nest/utls/widgets/primery_button.dart';
@@ -82,29 +83,23 @@ class _SignUpPageState extends State<SignUpPage> {
                   InputField(
                     labelText: "name",
                     controller: _nameController,
-                    validator: (value) =>
-                        value!.isEmpty ? "Name is required" : null,
+                    validator: Validators.validateName,
                   ),
                   InputField(
                     labelText: "phone number",
                     controller: _phoneController,
-                    validator: (value) =>
-                        value!.isEmpty ? "Phone is required" : null,
+                    validator: Validators.validatePhone,
                   ),
                   InputField(
                     labelText: "email",
                     controller: _emailController,
-                    validator: (value) => value!.isEmpty || !value.contains('@')
-                        ? "enter valid email"
-                        : null,
+                    validator: Validators.validateEmail,
                   ),
                   InputField(
                     labelText: "password",
                     controller: _passwordController,
                     obscureText: true,
-                    validator: (value) => value!.length < 6
-                        ? "Password must be at least 6 chars"
-                        : null,
+                    validator: Validators.validatePassword,
                   ),
                   const SizedBox(height: 100),
 

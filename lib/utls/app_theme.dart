@@ -56,10 +56,11 @@ class AppTheme {
       brightness: Brightness.dark,
       error: errorRed,
       surfaceTint: neutralGray,
+      surface: const Color(0xFF121212),
     ),
-    scaffoldBackgroundColor: const Color(0xFF121212),
+    scaffoldBackgroundColor: Colors.black,
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF121212),
       foregroundColor: Colors.white,
       elevation: 0,
       titleTextStyle: Fontstyle.dark(fontWeight: FontWeight.w500, fontSize: 17),
